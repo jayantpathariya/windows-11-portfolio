@@ -1,25 +1,31 @@
 "use client";
 
-import { pinnedApps, recommendedApps } from "@/assets/data";
-import { useMenu } from "@/hooks/use-menu-store";
-import { cn } from "@/lib/utils";
 import { ChevronRight, Power } from "lucide-react";
 import Image from "next/image";
-import { Tooltip } from "./tooltip";
+
+import { pinnedApps, recommendedApps } from "@/assets/data";
+import { Tooltip } from "@/components/tooltip";
+import { useMenu } from "@/hooks/use-menu-store";
+import { cn } from "@/lib/utils";
 
 export const StartMenu = () => {
-  const { isOpen, onClose } = useMenu();
+  const { isOpen, type, onClose } = useMenu();
 
   return (
     <>
       <div
         onClick={onClose}
-        className={cn("absolute inset-0 z-[5] hidden", isOpen && "block")}
+        className={cn(
+          "absolute inset-0 z-[5] hidden",
+          isOpen && type === "start" && "block"
+        )}
       />
       <div
         className={cn(
           "fixed bottom-20 left-1/2 transform -translate-x-1/2 bg-gray-800 bg-opacity-90 backdrop-blur-lg text-white rounded-xl w-[750px] border border-white border-opacity-10 shadow-lg transition-all ease-in-out z-10 overflow-hidden",
-          isOpen ? "translate-y-0" : "translate-y-full bottom-0"
+          isOpen && type === "start"
+            ? "translate-y-0"
+            : "translate-y-full bottom-0"
         )}
       >
         <div className="p-6">

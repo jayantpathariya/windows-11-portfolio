@@ -19,7 +19,7 @@ export const TaskbarButton = ({
     <Tooltip text={tooltipText}>
       <button
         onClick={onClick}
-        className="hover:bg-white hover:bg-opacity-10 hover:backdrop-blur-sm p-3 rounded-md overflow-hidden transition-all duration-100 ease-in-out"
+        className="hover:bg-white hover:bg-opacity-10 hover:backdrop-blur-sm p-3 rounded-md overflow-hidden transition-all duration-100 ease-in-out cursor-auto"
       >
         <Image
           src={imageSrc}

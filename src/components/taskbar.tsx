@@ -16,6 +16,12 @@ export const Taskbar = () => {
     else onOpen("start");
   };
 
+  const handleSearchMenuClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    if (isOpen) onClose();
+    else onOpen("search");
+  };
+
   return (
     <div
       onClick={onClose}
@@ -30,14 +36,17 @@ export const Taskbar = () => {
           onClick={handleStartMenuClick}
         />
         <Tooltip text="Search">
-          <div className="bg-white bg-opacity-30 backdrop-blur-md border border-white border-opacity-10 flex items-center justify-center gap-x-3 px-4 py-1 rounded-full hover:bg-opacity-35">
+          <button
+            onClick={handleSearchMenuClick}
+            className="bg-white bg-opacity-30 backdrop-blur-md border border-white border-opacity-10 flex items-center justify-center gap-x-3 px-4 py-1 rounded-full hover:bg-opacity-35 cursor-auto"
+          >
             <Image src="/search.png" width={22} height={22} alt="Search icon" />
             <input
               type="text"
               placeholder="Search"
               className="w-full bg-transparent text-gray-100 placeholder:text-neutral-200 text-lg outline-none"
             />
-          </div>
+          </button>
         </Tooltip>
 
         <TaskbarButton
