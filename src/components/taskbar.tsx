@@ -1,17 +1,34 @@
+"use client";
+
 import { BatteryMedium, Bell, ChevronUp, Volume2, Wifi } from "lucide-react";
 import Image from "next/image";
-import { Tooltip } from "./tooltip";
+
+import { TaskbarButton } from "@/components/taskbar-button";
+import { Tooltip } from "@/components/tooltip";
+import { useMenu } from "@/hooks/use-menu-store";
 
 export const Taskbar = () => {
+  const { isOpen, onOpen, onClose } = useMenu();
+
+  const handleStartMenuClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    if (isOpen) onClose();
+    else onOpen("start");
+  };
+
   return (
-    <div className="fixed bottom-0 left-0 right-0 h-16 bg-black bg-opacity-30 backdrop-blur-md border-t border-white border-opacity-10 flex items-center">
+    <div
+      onClick={onClose}
+      className="fixed bottom-0 left-0 right-0 h-16 bg-black bg-opacity-30 backdrop-blur-md border-t border-white border-opacity-10 flex items-center z-50"
+    >
       <div className="flex-1" />
       <div className="flex items-center justify-center gap-x-2">
-        <Tooltip text="Start">
-          <div className="hover:bg-white hover:bg-opacity-10 hover:backdrop-blur-sm p-3 rounded-md overflow-hidden transition-all duration-100 ease-in-out">
-            <Image src="/start.png" width={32} height={32} alt="Start icon" />
-          </div>
-        </Tooltip>
+        <TaskbarButton
+          tooltipText="Start"
+          imageSrc="/applications/start.png"
+          imageAlt="Start icon"
+          onClick={handleStartMenuClick}
+        />
         <Tooltip text="Search">
           <div className="bg-white bg-opacity-30 backdrop-blur-md border border-white border-opacity-10 flex items-center justify-center gap-x-3 px-4 py-1 rounded-full hover:bg-opacity-35">
             <Image src="/search.png" width={22} height={22} alt="Search icon" />
@@ -22,51 +39,36 @@ export const Taskbar = () => {
             />
           </div>
         </Tooltip>
-        <Tooltip text="Desktop">
-          <div className="hover:bg-white hover:bg-opacity-10 hover:backdrop-blur-sm p-3 rounded-md overflow-hidden transition-all duration-100 ease-in-out">
-            <Image
-              src="/task-view.png"
-              width={32}
-              height={32}
-              alt="Task view icon"
-            />
-          </div>
-        </Tooltip>
-        <Tooltip text="Explorer">
-          <div className="hover:bg-white hover:bg-opacity-10 hover:backdrop-blur-sm p-3 rounded-md overflow-hidden transition-all duration-100 ease-in-out">
-            <Image
-              src="/explorer.png"
-              width={32}
-              height={32}
-              alt="Explorer icon"
-            />
-          </div>
-        </Tooltip>
-        <Tooltip text="Microsoft Store">
-          <div className="hover:bg-white hover:bg-opacity-10 hover:backdrop-blur-sm p-3 rounded-md overflow-hidden transition-all duration-100 ease-in-out">
-            <Image src="/store.png" width={32} height={32} alt="Store icon" />
-          </div>
-        </Tooltip>
-        <Tooltip text="Terminal">
-          <div className="hover:bg-white hover:bg-opacity-10 hover:backdrop-blur-sm p-3 rounded-md overflow-hidden transition-all duration-100 ease-in-out">
-            <Image
-              src="/terminal.png"
-              width={32}
-              height={32}
-              alt="Terminal icon"
-            />
-          </div>
-        </Tooltip>
-        <Tooltip text="VsCode">
-          <div className="hover:bg-white hover:bg-opacity-10 hover:backdrop-blur-sm p-3 rounded-md overflow-hidden transition-all duration-100 ease-in-out">
-            <Image
-              src="/vscode.png"
-              width={32}
-              height={32}
-              alt="VS Code icon"
-            />
-          </div>
-        </Tooltip>
+
+        <TaskbarButton
+          tooltipText="Desktop"
+          imageSrc="/applications/task-view.png"
+          imageAlt="Task view icon"
+        />
+
+        <TaskbarButton
+          tooltipText="Explorer"
+          imageSrc="/applications/explorer.png"
+          imageAlt="Explorer icon"
+        />
+
+        <TaskbarButton
+          tooltipText="Microsoft Store"
+          imageSrc="/applications/store.png"
+          imageAlt="Store icon"
+        />
+
+        <TaskbarButton
+          tooltipText="Terminal"
+          imageSrc="/applications/terminal.png"
+          imageAlt="Terminal icon"
+        />
+
+        <TaskbarButton
+          tooltipText="VsCode"
+          imageSrc="/applications/vscode.png"
+          imageAlt="VS Code icon"
+        />
       </div>
       <div className="flex-1 flex  items-center justify-end mr-5">
         <Tooltip text="Show hidden icons">

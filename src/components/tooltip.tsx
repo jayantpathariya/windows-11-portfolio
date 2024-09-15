@@ -12,7 +12,7 @@ export const Tooltip = ({ children, text }: TooltipProps) => {
         <TooltipPrimitive.Trigger asChild>{children}</TooltipPrimitive.Trigger>
         <TooltipPrimitive.Portal>
           <TooltipPrimitive.Content
-            className="bg-black bg-opacity-30 backdrop-blur-md  rounded-md p-2 text-sm text-white"
+            className="bg-black bg-opacity-30 backdrop-blur-md  rounded-md p-2 text-sm text-white z-50"
             sideOffset={10}
           >
             {text}
