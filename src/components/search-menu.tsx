@@ -1,7 +1,8 @@
+import Image from "next/image";
+
 import { pinnedApps } from "@/assets/data";
 import { useMenu } from "@/hooks/use-menu-store";
 import { cn } from "@/lib/utils";
-import Image from "next/image";
 
 export const SearchMenu = () => {
   const { isOpen, type, onClose } = useMenu();

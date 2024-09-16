@@ -22,6 +22,14 @@ export const Taskbar = () => {
     else onOpen("search");
   };
 
+  const handleQuickSettingsMenuClick = (
+    e: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    e.stopPropagation();
+    if (isOpen) onClose();
+    else onOpen("quick-settings");
+  };
+
   return (
     <div
       onClick={onClose}
@@ -85,7 +93,10 @@ export const Taskbar = () => {
             <ChevronUp className="size-6 text-white" />
           </div>
         </Tooltip>
-        <div className="hover:bg-white hover:bg-opacity-10 hover:backdrop-blur-sm p-3 rounded-md overflow-hidden transition-all duration-100 ease-in-out flex items-center gap-x-3">
+        <button
+          className="hover:bg-white hover:bg-opacity-10 hover:backdrop-blur-sm p-3 rounded-md overflow-hidden transition-all duration-100 ease-in-out flex items-center gap-x-3"
+          onClick={handleQuickSettingsMenuClick}
+        >
           <Tooltip text="Jayant">
             <Wifi className="size-5 text-white" />
           </Tooltip>
@@ -95,7 +106,7 @@ export const Taskbar = () => {
           <Tooltip text="Battery status: 53%">
             <BatteryMedium className="size-6 text-white" />
           </Tooltip>
-        </div>
+        </button>
         <Tooltip text="14 September 2024">
           <div className="hover:bg-white hover:bg-opacity-10 hover:backdrop-blur-sm p-3 rounded-md overflow-hidden transition-all duration-100 ease-in-out flex items-center gap-x-3">
             <div className="text-gray-100 text-sm flex flex-col items-center justify-normal">
