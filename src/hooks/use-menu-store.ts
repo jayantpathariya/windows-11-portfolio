@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-export type MenuType = "start" | "search" | "quick-settings";
+export type MenuType = "start" | "search" | "quick-settings" | "notification";
 
 type MenuStore = {
   type: MenuType | null;

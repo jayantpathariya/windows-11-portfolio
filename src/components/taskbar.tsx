@@ -1,7 +1,9 @@
 "use client";
 
+import { format } from "date-fns";
 import { BatteryMedium, Bell, ChevronUp, Volume2, Wifi } from "lucide-react";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 import { TaskbarButton } from "@/components/taskbar-button";
 import { Tooltip } from "@/components/tooltip";
@@ -9,6 +11,16 @@ import { useMenu } from "@/hooks/use-menu-store";
 
 export const Taskbar = () => {
   const { isOpen, onOpen, onClose } = useMenu();
+
+  const [currentDate, setCurrentDate] = useState(new Date());
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentDate(new Date());
+    }, 30000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const handleStartMenuClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
@@ -28,6 +40,14 @@ export const Taskbar = () => {
     e.stopPropagation();
     if (isOpen) onClose();
     else onOpen("quick-settings");
+  };
+
+  const handleNotificationMenuClick = (
+    e: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    e.stopPropagation();
+    if (isOpen) onClose();
+    else onOpen("notification");
   };
 
   return (
@@ -108,13 +128,16 @@ export const Taskbar = () => {
           </Tooltip>
         </button>
         <Tooltip text="14 September 2024">
-          <div className="hover:bg-white hover:bg-opacity-10 hover:backdrop-blur-sm p-3 rounded-md overflow-hidden transition-all duration-100 ease-in-out flex items-center gap-x-3">
+          <button
+            onClick={handleNotificationMenuClick}
+            className="hover:bg-white hover:bg-opacity-10 hover:backdrop-blur-sm p-3 rounded-md overflow-hidden transition-all duration-100 ease-in-out flex items-center gap-x-3"
+          >
             <div className="text-gray-100 text-sm flex flex-col items-center justify-normal">
-              <p>09:49 PM</p>
-              <p>14-09-2024</p>
+              <p>{format(currentDate, "hh:mm a")}</p>
+              <p>{format(currentDate, "dd-MM-yyyy")}</p>
             </div>
             <Bell className="size-6 text-white" />
-          </div>
+          </button>
         </Tooltip>
       </div>
     </div>
